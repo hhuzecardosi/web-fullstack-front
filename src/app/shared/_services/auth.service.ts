@@ -18,6 +18,6 @@ export class AuthService {
   }
 
   register(email: string, pseudo: string, password: string): Observable<any>{
-    return this.http.post<any>(environment.backEndURL + 'register', {email: email, pseudo: pseudo, password: password});
+    return this.http.post<any>(environment.backEndURL + '/register', {email: email, pseudo: pseudo, password: password});
   }
 }
