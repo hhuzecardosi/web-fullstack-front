@@ -13,6 +13,9 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { NavComponent } from './shared/nav/nav.component';
 import {LucideAngularModule, CalendarClock, Home, User, Folders, LogOut} from "lucide-angular";
+import { GamesComponent } from './games/games.component';
+import { UserComponent } from './user/user.component';
+import { NightResultsComponent } from './night-results/night-results.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import {LucideAngularModule, CalendarClock, Home, User, Folders, LogOut} from "l
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    NavComponent
+    NavComponent,
+    GamesComponent,
+    UserComponent,
+    NightResultsComponent
   ],
   imports: [
     BrowserModule,
