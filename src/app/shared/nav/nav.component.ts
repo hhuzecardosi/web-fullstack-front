@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from "../_services/token-storage.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-nav',
@@ -8,13 +9,13 @@ import { TokenStorageService } from "../_services/token-storage.service";
 })
 export class NavComponent implements OnInit {
 
-  constructor(private token: TokenStorageService) { }
+  constructor(private token: TokenStorageService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
   navigate(destination: string): void{
-    console.log(destination)
+    this.router.navigate(['/' + destination]).then(r => {})
   }
 
   signOut() {
