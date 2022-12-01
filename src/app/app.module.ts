@@ -12,7 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { NavComponent } from './shared/nav/nav.component';
-import {LucideAngularModule, CalendarClock, Home, User, Folders} from "lucide-angular";
+import {LucideAngularModule, CalendarClock, Home, User, Folders, LogOut} from "lucide-angular";
 
 @NgModule({
   declarations: [
@@ -28,7 +28,7 @@ import {LucideAngularModule, CalendarClock, Home, User, Folders} from "lucide-an
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    LucideAngularModule.pick({  Home, CalendarClock, User, Folders})
+    LucideAngularModule.pick({  Home, CalendarClock, User, Folders, LogOut})
   ],
   providers: [authInterceptorProviders, AuthGuard],
   bootstrap: [AppComponent]
