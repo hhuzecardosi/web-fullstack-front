@@ -11,20 +11,24 @@ import {HttpClientModule} from "@angular/common/http";
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
+import { NavComponent } from './shared/nav/nav.component';
+import {LucideAngularModule, CalendarClock, Home, User, Folders} from "lucide-angular";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    LucideAngularModule.pick({  Home, CalendarClock, User, Folders})
   ],
   providers: [authInterceptorProviders, AuthGuard],
   bootstrap: [AppComponent]
