@@ -17,11 +17,11 @@
       <!-- History -->
       <div class="bg-gray-200 shadow rounded w-4/6 p-10 mr-1">
         <p>Historique</p>
-        <table>
+        <table class="w-full">
           <thead>
           <tr>
-            <th>Date</th>
-            <th>Nom</th>
+            <th class="text-left">Date</th>
+            <th class="text-left">Nom</th>
             <th>Score</th>
           </tr>
           </thead>
@@ -29,7 +29,7 @@
           <tr *ngFor="let choice of history">
             <td>{{choice.date}}</td>
             <td>{{choice.player_name}}</td>
-            <td>{{choice.stats.score}}</td>
+            <td class="text-center">{{choice.stats.score}}</td>
           </tr>
           </tbody>
         </table>
@@ -37,17 +37,17 @@
       <!-- Blacklist -->
       <div class="bg-gray-200 shadow rounded w-2/6 p-10 ml-1">
         <p>Blacklist</p>
-        <table>
+        <table class="w-full">
           <thead>
           <tr>
-            <th>Joueur</th>
-            <th>Temps restant</th>
+            <th class="text-left">Joueur</th>
+            <th class="text-left">Temps restant</th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let player of blacklist">
-            <td>{{player.player_name}}</td>
-            <td>{{player.days}}</td>
+            <td class="text-left">{{player.player_name}}</td>
+            <td class="text-left">{{player.days}}</td>
           </tr>
           </tbody>
         </table>

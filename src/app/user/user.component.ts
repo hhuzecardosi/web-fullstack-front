@@ -25,7 +25,6 @@ export class UserComponent implements OnInit {
       next : response => {
         if (response.code === 200){
           this.blacklist = response.data;
-          console.log(this.blacklist)
           this.storage.setItem('blacklist', JSON.stringify(response.data));
           this.initiateBlacklist();
         }

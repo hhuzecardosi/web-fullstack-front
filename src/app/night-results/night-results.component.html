@@ -1,6 +1,48 @@
 <div class="flex flex-row">
   <div class="flex-none"><app-nav></app-nav></div>
-  <div class="flex-initial">
-    <div><h1> Night Result Works!</h1></div>
+  <div class="flex-initial w-full flex-col">
+    <div class="bg-gray-200 shadow rounded ml-20 mr-20 mt-10 p-10 flex justify-between">
+      <p>Résultats de la nuit</p>
+    </div>
+    <div class="overflow-x-auto bg-gray-200 shadow h-4/6 rounded ml-20 mr-20 p-10 mt-10">
+      <table class="w-full">
+        <thead>
+        <tr>
+          <th class="text-left">Nom</th>
+          <th>Pts</th>
+          <th>Rbds</th>
+          <th>Asts</th>
+          <th>Blks</th>
+          <th>Stls</th>
+          <th>Fgm</th>
+          <th>Fg3m</th>
+          <th>Ftm</th>
+          <th>Fga</th>
+          <th>Fg3a</th>
+          <th>Fta</th>
+          <th>T/O</th>
+          <th>Score</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let stat of statistics">
+          <td>{{stat.name}}</td>
+          <td class="text-center">{{stat?.stats?.points}}</td>
+          <td class="text-center">{{stat?.stats?.rebounds}}</td>
+          <td class="text-center">{{stat?.stats?.assists}}</td>
+          <td class="text-center">{{stat?.stats?.blocks}}</td>
+          <td class="text-center">{{stat?.stats?.steals}}</td>
+          <td class="text-center">{{stat?.stats?.fgm}}</td>
+          <td class="text-center">{{stat?.stats?.fg3m}}</td>
+          <td class="text-center">{{stat?.stats?.ftm}}</td>
+          <td class="text-center">{{stat?.stats?.fga}}</td>
+          <td class="text-center">{{stat?.stats?.fg3a}}</td>
+          <td class="text-center">{{stat?.stats?.fta}}</td>
+          <td class="text-center">{{stat?.stats?.turnovers}}</td>
+          <td class="text-center">{{stat?.stats?.score}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
