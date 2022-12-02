@@ -71,13 +71,13 @@ export class UserComponent implements OnInit {
   initiateBlacklist(){
     const blacklist: Array<any> = []
     this.blacklist.forEach((db_player: any) => {
-      let diff = Math.abs(new Date(db_player.since).getTime() - new Date(db_player.to).getTime());
+      let diff = Math.abs(new Date(db_player.to).getTime() - new Date().getTime());
       let diffDays = Math.ceil(diff / (1000 * 3600 * 24));
       blacklist.push({'player_name': db_player.player.name, 'player_id': db_player.player._id, 'days': diffDays})
     });
     blacklist.sort((a: any, b: any) => {
-      if(a.days < b.days){return 1}
-      else if(a.days > b.days){return -1}
+      if(a.days > b.days){return 1}
+      else if(a.days < b.days){return -1}
       else { return 0 }
     });
     this.blacklist = blacklist
