@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { AuthService } from "../shared/_services/auth.service";
 import { TokenStorageService } from "../shared/_services/token-storage.service";
+import { StorageService } from "../shared/_services/storage.service";
+import { UserService } from "../shared/_services/user.service";
 import { Router } from "@angular/router";
 
 @Component({
@@ -17,7 +19,8 @@ export class LoginComponent implements OnInit {
   emailMessage: string | undefined;
   errorMessage: string | undefined;
 
-  constructor(private fb: FormBuilder, private auth: AuthService, private token: TokenStorageService, private router: Router) {
+  constructor(private fb: FormBuilder, private auth: AuthService, private token: TokenStorageService,
+              private router: Router, private storage: StorageService, private user: UserService) {
     this.loginForm = this.fb.group({
       email: [undefined, [Validators.required, Validators.email]],
       password: [undefined, [Validators.required]]
@@ -36,6 +39,15 @@ export class LoginComponent implements OnInit {
       this.auth.login(this.loginForm.value.email, this.loginForm.value.password).subscribe(
         response => {
           this.token.saveToken(response.data.token);
+          this.storage.setItem('user', JSON.stringify(response.data.user));
+          this.user.getBlacklistObservable().subscribe(
+            response => { console.log(response); this.storage.setItem('blacklist', JSON.stringify(response.data)); },
+            error => { console.log(error)}
+          );
+          this.user.getDeckObservable().subscribe(
+            response =>{ console.log(response); this.storage.setItem('deck', JSON.stringify(response.data)); },
+            error => {console.log(error)}
+          );
           this.router.navigate(['']).then(r => {});
         },
         err => {
