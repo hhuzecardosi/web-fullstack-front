@@ -12,7 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { NavComponent } from './shared/nav/nav.component';
-import {LucideAngularModule, CalendarClock, Home, User, Folders, LogOut} from "lucide-angular";
+import {LucideAngularModule, CalendarClock, Home, User, Folders, LogOut, ChevronRight} from "lucide-angular";
 import { GamesComponent } from './games/games.component';
 import { UserComponent } from './user/user.component';
 import { NightResultsComponent } from './night-results/night-results.component';
@@ -34,7 +34,7 @@ import { NightResultsComponent } from './night-results/night-results.component';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    LucideAngularModule.pick({  Home, CalendarClock, User, Folders, LogOut})
+    LucideAngularModule.pick({  Home, CalendarClock, User, Folders, LogOut, ChevronRight})
   ],
   providers: [authInterceptorProviders, AuthGuard],
   bootstrap: [AppComponent]

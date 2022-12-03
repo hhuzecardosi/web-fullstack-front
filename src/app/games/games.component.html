@@ -1,6 +1,73 @@
 <div class="flex flex-row">
   <div class="flex-none"><app-nav></app-nav></div>
-  <div class="flex-initial">
-    <div><h1> Games Works!</h1></div>
+  <div class="ml-20 flex-initial w-full flex-col">
+    <div class="bg-gray-200 shadow rounded ml-10 mr-10 mt-10 p-10 flex justify-between">
+      <p>Matchs de la semaine</p>
+    </div>
+    <div class="flex flex-row m-10 h-full">
+      <!-- Days -->
+      <div class="flex-none flex flex-col w-1/4 ml-2 mt-2 h-full">
+        <div class="bg-gray-200 shadow rounded m-2 w-11/12 flex justify-between p-3"> <p>Jours de la semaine</p> </div>
+        <div *ngFor="let day of weekDays">
+          <div *ngIf="day.passed" class="bg-gray-100 shadow rounded m-2 h-24 w-11/12 grid place-items-center
+          hover:bg-gray-50" (click)="pickDay(day)">
+            <div class="flex flex-row">
+              <div class="text-gray-500 capitalize">{{day.label}}</div>
+              <div *ngIf="selectedDay == day.date"><lucide-icon name="chevron-right" class="my-icon"></lucide-icon></div>
+            </div>
+          </div>
+          <div *ngIf="!day.passed" class="bg-gray-700 shadow rounded m-2 h-24 w-11/12 grid place-items-center
+              hover:bg-languid-lavender" (click)="pickDay(day)">
+            <div class="flex flex-row">
+              <div class="text-gray-50 capitalize">{{day.label}}</div>
+              <div *ngIf="selectedDay == day.date"><lucide-icon name="chevron-right" class="my-icon"></lucide-icon></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Games -->
+      <div class="flex-none flex flex-col w-1/4 ml-2 mt-2 h-full">
+        <div class="bg-gray-200 shadow rounded m-2 w-11/12 flex justify-between p-3"> <p>Matchs du jour</p> </div>
+        <div *ngFor="let game of dayGames">
+          <div class="bg-gray-700 shadow rounded m-2 h-24 w-11/12 grid place-items-center hover:bg-languid-lavender"
+               (click)="pickGame(game)">
+            <div class="flex flex-row">
+              <div class="text-gray-50 capitalize">{{game.h_team.name}} - {{game.v_team.name}}</div>
+              <div *ngIf="selectedGame == game._id"><lucide-icon name="chevron-right" class="my-icon"></lucide-icon></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex-none flex flex-col w-1/4 ml-2 mt-2 h-full">
+        <div class="bg-gray-200 shadow rounded m-2 w-11/12 flex justify-between p-3"> <p>Équipes</p> </div>
+        <div *ngFor="let team of gameTeams">
+          <div class="bg-gray-700 shadow rounded m-2 h-24 w-11/12 grid place-items-center hover:bg-languid-lavender"
+               (click)="pickTeam(team)">
+            <div class="flex flex-row">
+              <div class="text-gray-50 capitalize">{{team.name}}</div>
+              <div *ngIf="selectedTeam == team._id"><lucide-icon name="chevron-right" class="my-icon"></lucide-icon></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Players -->
+      <div class="flex-none flex flex-col w-1/4 ml-2 mt-2 h-full">
+        <div class="bg-gray-200 shadow rounded m-2 w-11/12 flex justify-between p-3"> <p>Joueurs</p> </div>
+        <div *ngFor="let player of teamPlayers">
+          <div *ngIf="player.blacklist" class="bg-gray-100 shadow rounded m-2 h-24 w-11/12 grid place-items-center"
+               (click)="pickPlayer(player)">
+            <div class="flex flex-row">
+              <div class="text-gray-500 capitalize">{{player.name}} - <span class="font-extrabold">{{player.days}} Jours Restant</span></div>
+            </div>
+          </div>
+          <div *ngIf="!player.blacklist" class="bg-gray-700 shadow rounded m-2 h-24 w-11/12 grid place-items-center hover:bg-languid-lavender"
+               (click)="pickPlayer(player)">
+            <div class="flex flex-row">
+              <div class="text-gray-50 capitalize">{{player.name}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
