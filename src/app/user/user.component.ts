@@ -86,7 +86,9 @@ export class UserComponent implements OnInit {
   computeScore(){
     this.user_score = 0
     this.history.forEach((choice: any) => {
-      this.user_score += choice.stats.score;
-    })
+      // console.log({'choice?.player_name': choice?.player_name , 'choice?.stats': choice?.stats , 'choice?.stats?.score': choice?.stats?.score});
+      let player_score = choice?.stats?.score ? choice?.stats?.score : 0
+      this.user_score += player_score;
+    });
   }
 }

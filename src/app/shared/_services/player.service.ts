@@ -16,6 +16,10 @@ export class PlayerService {
   constructor(private http: HttpClient) { }
 
   getNightStats(): Observable<any>{
-    return this.http.get(this.url + '/statistics/yesterday')
+    return this.http.get(this.url + '/statistics/yesterday');
+  }
+
+  pickPlayer(playerID: string, date: string): Observable<any>{
+    return this.http.get(this.url + '/pick/' + date + '/' + playerID);
   }
 }

@@ -54,6 +54,7 @@ export class GamesComponent implements OnInit {
   }
 
   initiateBlacklist(blacklist: any){
+    this.blacklist = [];
     blacklist.forEach((db_player: any) => {
       let to = moment(db_player.to, 'YYYY-MM-DD');
       let diff = to.diff(moment(), 'days');
@@ -64,6 +65,8 @@ export class GamesComponent implements OnInit {
   pickDay(day: any){
     this.gameTeams = []
     this.teamPlayers = []
+    this.selectedTeam = ''
+    this.selectedGame = ''
     this.selectedDay = day.date
     let games = this.weekGames.find((date: any) => date.date === day.date);
     this.dayPassed = day.passed
@@ -71,25 +74,31 @@ export class GamesComponent implements OnInit {
   }
 
   pickGame(game: any){
-    this.gameTeams = []
-    this.selectedGame = game._id;
-    this.team.getTeamDetails(game.h_team._id).subscribe({
-      next: response => { this.h_team = response.data },
-      error: err => {}
-    });
-    this.team.getTeamDetails(game.v_team._id).subscribe({
-      next: response => { this.v_team = response.data },
-      error: err => {}
-    });
-    this.gameTeams.push({'name': game.h_team.name, 'type': 'h_team', '_id': game.h_team._id});
-    this.gameTeams.push({'name': game.v_team.name, 'type': 'v_team', '_id': game.v_team._id});
+    if (game._id !== this.selectedGame) {
+      this.gameTeams = []
+      this.selectedTeam = ''
+      this.selectedGame = ''
+      this.teamPlayers = []
+      this.selectedGame = game._id;
+      this.team.getTeamDetails(game.h_team._id).subscribe({
+        next: response => { this.h_team = response.data },
+        error: err => { }
+      });
+      this.team.getTeamDetails(game.v_team._id).subscribe({
+        next: response => { this.v_team = response.data },
+        error: err => { }
+      });
+      this.gameTeams.push({'name': game.h_team.name, 'type': 'h_team', '_id': game.h_team._id});
+      this.gameTeams.push({'name': game.v_team.name, 'type': 'v_team', '_id': game.v_team._id});
+    }
   }
 
   pickTeam(team: any){
+    console.log(this.gameTeams)
+    console.log('PickTeam', this.selectedTeam, team);
     this.teamPlayers = []
     this.selectedTeam = team._id;
     let displayTeam = team.type === 'h_team' ? this.h_team : this.v_team;
-    console.log(displayTeam)
     // Prepare players
     displayTeam.players.forEach((player: any) => {
       let p_blacklisted = this.blacklist.find((p: any) => p.player_id === player._id)
@@ -99,6 +108,21 @@ export class GamesComponent implements OnInit {
   }
 
   pickPlayer(player: any){
+    if (!this.dayPassed && !player.blacklist && this.selectedDay) {
+      this.player.pickPlayer(player._id, this.selectedDay).subscribe({
+        next: response => { this.postPickPlayer(response) },
+        error: err => { console.log(err) }
+      });
+    }
+  }
 
+  postPickPlayer(response: any){
+    console.log(response)
+    this.storage.setItem('blacklist', JSON.stringify(response.data.blacklist));
+    this.storage.setItem('deck', JSON.stringify(response.data.deck));
+    this.initiateBlacklist(response.data.blacklist)
+    console.log(this.blacklist);
+    let team = this.gameTeams.find((t: any) => t._id === this.selectedTeam)
+    this.pickTeam(team);
   }
 }
